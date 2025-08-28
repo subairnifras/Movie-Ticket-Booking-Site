@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Movie Website</title>
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo">
+      <i class='bx bxs-movie'></i> Movies
+    </a>
+    <ul class="navbar">
+        <li><a href="#home" class="home-active">Home</a></li>
+        <li><a href="#movies">Movies</a></li>
+        <li><a href="#coming">Coming</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+    </ul>
+
+    <!-- Search Icon -->
+    <a href="more-movies.html" class="search-icon" title="Search Movies">
+      <i class='bx bx-search'></i>
+    </a>    
+  
+    <a href="login.html" class="btn">Sign In</a>
+    <div class="bx bx-menu" id="menu-icon"></div>
+  </header>
+
+  <!-- Swiper Home Section -->
+  <section class="home swiper" id="home">
+    <div class="swiper-wrapper">
+      
+      <!-- Slide 1 -->
+      <div class="swiper-slide container">
+        <img src="img/home1.jpg" alt="">
+        <div class="home-text">
+          <span>Marvel Universe</span>
+          <h1>Venom: Let There <br> Be Carnage</h1>
+          <button class="book-now-btn btn">Book Now</button>
+          <a href="#" class="play"><i class='bx bx-play'></i></a>
+        </div>
+      </div>
+      
+
+      <!-- Slide 2 -->
+      <div class="swiper-slide container">
+        <img src="img/vikram.jpg" alt="">
+        <div class="home-text">
+          <span>Lokesh Cinematic Universe</span>
+          <h1>Vikram<br>Agent of Black Squad</h1>
+          <button class="book-now-btn btn">Book Now</button>
+          <a href="#" class="play"><i class='bx bx-play'></i></a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="swiper-slide container">
+        <img src="img/home2.webp" alt="">
+        <div class="home-text">
+          <span>Marvel Universe</span>
+          <h1>Avengers <br>End Game</h1>
+          <button class="book-now-btn btn">Book Now</button>
+          <a href="#" class="play"><i class='bx bx-play'></i></a>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="swiper-slide container">
+        <img src="img/home3.jpg" alt="">
+        <div class="home-text">
+          <span>Marvel Universe</span>
+          <h1>Spider Man<br> No Way Home</h1>
+          <button class="book-now-btn btn">Book Now</button>
+          <a href="#" class="play"><i class='bx bx-play'></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Swiper Controls -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </section>
+
+  <!-- Movies  -->
+   <section class="movies" id="movies">
+    <h2 class="heading">Opening This Week</h2>
+    <!-- Movies Container-->
+     <div class="movies-container">
+
+      <!-- Boox 1-->
+      <div class="box">
+        <div class="box-img">
+        <img src="img/Vikram1.jpg" alt="">
+      </div>
+      <h3>Vikram</h3>
+      <span>152 min | Action | Tamil</span>
+     </div>
+
+     <!-- Boox 2-->
+     <div class="box">
+      <div class="box-img">
+      <img src="img/moon knight.jpg" alt="">
+    </div>
+    <h3>Moon knight</h3>
+    <span>152 min | Action | English</span>
+   </div>
+
+   <!-- Boox 3-->
+   <div class="box">
+    <div class="box-img">
+    <img src="img/ant man.jpg" alt="">
+  </div>
+  <h3>Ant Man</h3>
+  <span>148 min | Action | English</span>
+ </div>
+
+  <!-- Boox 4-->
+  <div class="box">
+    <div class="box-img">
+    <img src="img/jailer.webp" alt="">
+  </div>
+  <h3>Jailer</h3>
+  <span>180 min | Action | Tamil</span>
+ </div>
+
+  <!-- Boox 5-->
+  <div class="box">
+    <div class="box-img">
+    <img src="img/avengers.jpg" alt="">
+  </div>
+  <h3>Avengers</h3>
+  <span>110 min | Action | English</span>
+ </div>
+
+ <!-- Boox 6-->
+ <div class="box">
+  <div class="box-img">
+  <img src="img/no way home.webp" alt="">
+</div>
+<h3>SpiderMan : No way Home</h3>
+<span>158 min | Action | English</span>
+</div>
+
+<!-- Boox 7-->
+<div class="box">
+  <div class="box-img">
+  <img src="img/cooli.jpg" alt="">
+</div>
+<h3>Cooli</h3>
+<span>180 min | Action | Tamil</span>
+</div>
+
+<!-- Boox 8-->
+<div class="box">
+  <div class="box-img">
+  <img src="img/intestellar.jpeg" alt="">
+</div>
+<h3>Intestellar</h3>
+<span>182 min | Sci-Fi Thriller | English</span>
+</div>
+
+<!-- Boox 9-->
+<div class="box">
+  <div class="box-img">
+  <img src="img/hangover.jpeg" alt="">
+</div>
+<h3>Hangover Prt-2</h3>
+<span>120 min | Comedy | English</span>
+</div>
+
+<div class="box more-box">
+  <a href="more-movies.html" class="more-btn">More</a>
+</div>
+
+     </div>
+   </section>
+
+<!-- Movies  -->
+<section class="movies" id="movies">
+  <h2 class="heading">Tamil Movies</h2>
+  <!-- Movies Container-->
+   <div class="movies-container">
+
+    <!-- Boox 1-->
+    <div class="box">
+      <div class="box-img">
+      <img src="img/Vikram1.jpg" alt="">
+    </div>
+    <h3>Vikram</h3>
+    <span>180 min | Action | Tamil</span>
+   </div>
+
+   <!-- Boox 2-->
+   <div class="box">
+    <div class="box-img">
+    <img src="img/cooli.jpg" alt="">
+  </div>
+  <h3>Cooli</h3>
+  <span>152 min | Action | Tamil</span>
+ </div>
+
+ <!-- Boox 3-->
+ <div class="box">
+  <div class="box-img">
+  <img src="img/vadachennai.jpeg" alt="">
+</div>
+<h3>Vada Chennai</h3>
+<span>180 min | Action | Tamil</span>
+</div>
+
+<!-- Boox 4-->
+<div class="box">
+  <div class="box-img">
+  <img src="img/jailer.webp" alt="">
+</div>
+<h3>Jailer</h3>
+<span>180 min | Action | Tamil</span>
+</div>
+
+<!-- Boox 5-->
+<div class="box">
+  <div class="box-img">
+  <img src="img/Thani Oruvan.jpeg" alt="">
+</div>
+<h3>Thani OruVAN</h3>
+<span>130 min | Action | Tamil</span>
+</div>
+
+<!-- Boox 6-->
+<div class="box">
+<div class="box-img">
+<img src="img/VikramVedha.jpeg" alt="">
+</div>
+<h3>vikram Vedha</h3>
+<span>170 min | Action | Tamil</span>
+</div>
+
+<!-- Boox 7-->
+<div class="box">
+<div class="box-img">
+<img src="img/leo.jpeg" alt="">
+</div>
+<h3>LEO</h3>
+<span>183 min | Action | Tamil</span>
+</div>
+
+<!-- Boox 8-->
+<div class="box">
+<div class="box-img">
+<img src="img/jaibheem.jpeg" alt="">
+</div>
+<h3>JaiBheem</h3>
+<span>175 min | Thriller | Tamil</span>
+</div>
+
+<!-- Boox 9-->
+<div class="box">
+<div class="box-img">
+<img src="img/master.jpeg" alt="">
+</div>
+<h3>Master</h3>
+<span>127 min | Action | Tamil</span>
+</div>
+
+<div class="box more-box">
+<a href="more-movies.html" class="more-btn">More</a>
+</div>
+
+   </div>
+ </section>
+
+ <!-- Movies  -->
+<section class="movies" id="movies">
+  <h2 class="heading">English Movies</h2>
+  <!-- Movies Container-->
+   <div class="movies-container">
+
+    <div class="box">
+      <div class="box-img">
+        <img src="img/avatar.jpeg" alt="">
+      </div>
+      <div class="movie-details">
+        <h3>Avatar 2</h3>
+        <span>180 min | Sci-Fi | English</span>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-img">
+        <img src="img/Superman.jpeg" alt="">
+      </div>
+      <div class="movie-details">
+        <h3>Superman</h3>
+        <span>170 min | DC | English</span>
+      </div>
+    </div>
+
+<!-- Boox 2-->
+<div class="box">
+<div class="box-img">
+<img src="img/moon knight.jpg" alt="">
+</div>
+<h3>Moon knight</h3>
+<span>152 min | Action | English</span>
+</div>
+
+<!-- Boox 3-->
+<div class="box">
+<div class="box-img">
+<img src="img/ant man.jpg" alt="">
+</div>
+<h3>Ant Man</h3>
+<span>148 min | Action | English</span>
+</div>
+
+<!-- Boox 4-->
+<div class="box">
+  <div class="box-img">
+    <img src="img/fantastic4.jpeg" alt="">
+  </div>
+  <div class="movie-details">
+    <h3>fantastic 4</h3>
+    <span>135 min | MCU | English</span>
+  </div>
+</div>
+
+<!-- Boox 5-->
+<div class="box">
+<div class="box-img">
+<img src="img/avengers.jpg" alt="">
+</div>
+<h3>Ant Man</h3>
+<span>110 min | Action | English</span>
+</div>
+
+<!-- Boox 6-->
+<div class="box">
+<div class="box-img">
+<img src="img/no way home.webp" alt="">
+</div>
+<h3>SpiderMan : No way Home</h3>
+<span>158 min | Action | English</span>
+</div>
+
+<!-- Boox 8-->
+<div class="box">
+<div class="box-img">
+<img src="img/intestellar.jpeg" alt="">
+</div>
+<h3>Intestellar</h3>
+<span>182 min | Sci-Fi Thriller | English</span>
+</div>
+
+<!-- Boox 9-->
+<div class="box">
+<div class="box-img">
+<img src="img/hangover.jpeg" alt="">
+</div>
+<h3>Hangover Prt-2</h3>
+<span>120 min | Comedy | English</span>
+</div>
+
+<div class="box more-box">
+<a href="more-movies.html" class="more-btn">More</a>
+</div>
+
+</div>
+</section>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+body{
+    background-image: url('img/theatrebg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+.booking-container {
+  background: white;
+  color: #222;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 420px;
+  margin-top: 40px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #e50914;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.showdate {
+  margin-bottom: 15px;
+}
+
+.showdate label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.showdate input[type="date"] {
+  padding: 8px;
+  border: 2px solid #ff2c1f;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.showdate input[type="date"]:hover {
+  background-color: #ffe5e3;
+}
+
+
+.showtime {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+label {
+  font-weight: 600;
+}
+
+select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-left: 8px;
+}
+
+.screen {
+  background: linear-gradient(to bottom, #ff4b4b, #b30000);
+  border-radius: 10px;
+  height: 40px;
+  margin: 30px 0 40px 0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  line-height: 40px;
+  letter-spacing: 1.2px;
+  user-select: none;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 40px);
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.seat {
+  background: #222;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.seat:hover {
+  background: #444;
+}
+
+.seat.selected {
+  background-color: green;
+}
+
+.booking-info {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.booking-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#clearSelection {
+  background: #444;
+  color: white;
+}
+
+#clearSelection:hover {
+  background: #666;
+}
+
+#confirmBooking {
+  background: #e50914;
+  color: white;
+}
+
+#confirmBooking:hover {
+  background: #b20710;
+}

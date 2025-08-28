@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #0b0b0b;
+  background-image: url('img/paymentbg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.50);
+  z-index: 0;
+}
+
+.payment-modal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 800px;
+  height: 480px;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(255, 44, 31, 0.6);
+  background: #fff;
+}
+
+.left-panel {
+  flex: 1;
+  padding: 50px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top-left-radius: 32px;
+  border-bottom-left-radius: 32px;
+}
+
+.left-panel h2 {
+  font-weight: 700;
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.form-group { margin-bottom: 24px; }
+
+label {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input[type="text"], input[type="password"], input[type="month"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff2c1f;
+  box-shadow: 0 0 6px rgba(255, 44, 31, 0.5);
+}
+
+.form-row { display: flex; gap: 20px; }
+.form-group.small { flex: 1; }
+
+button#payBtn {
+  margin-top: -10px;
+  padding: 10px 12px;
+  background-color: #ff2c1f;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+button#payBtn:hover { background-color: #cc2518; }
+
+.right-panel {
+  flex: 1;
+  background-color: #fff;
+  padding: 50px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-top-right-radius: 32px;
+  border-bottom-right-radius: 32px;
+}
+
+.success-message { display: none; text-align: center; }
+
+.success-icon {
+  margin: 0 auto 10px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #28a745aa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px #28a745aa;
+}
+
+.checkmark {
+  width: 40px;
+  height: 40px;
+  stroke: #fff;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  animation: drawCheck 0.5s ease forwards;
+}
+
+@keyframes drawCheck {
+  0% { stroke-dasharray: 30; stroke-dashoffset: 30; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* ================== Ticket Modal Styles ================== */
+.ticket-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.ticket-card {
+  display: flex;
+  background: linear-gradient(135deg, #ffffff, #fff7f6);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+  width: 600px;
+  max-width: 95%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.ticket-left {
+  flex: 2;
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ticket-left h3 {
+  margin: 0 0 15px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #e50914;
+  letter-spacing: 1px;
+}
+
+.ticket-left p {
+  margin: 6px 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+.ticket-left strong {
+  color: #e50914;
+}
+
+.ticket-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.ticket-actions button {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  border-radius: 12px;
+  background: #e50914;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.ticket-actions button:hover {
+  background: #b20710;
+  transform: scale(1.05);
+}
+
+.ticket-right {
+  flex: 1;
+  background: #f5f5f5;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-left: 2px dashed #e50914;
+}
+
+#qrcode {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 10px;
+}
+
+.qr-note {
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+}
+
+.close-ticket {
+  margin-top: 20px;
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.close-ticket:hover {
+  background: #fff;
+  color: #e50914;
+}

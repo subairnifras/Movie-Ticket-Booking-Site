@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking | Movie Site</title>
+  <link rel="stylesheet" href="booking.css" />
+</head>
+<body>
+
+  <div class="booking-container">
+    <h1>Book Your Seats</h1>
+
+    <!-- Date selector -->
+    <div class="showdate">
+      <label for="showDate">Select Date:</label>
+      <input type="date" id="showDate" />
+    </div>
+
+    <!-- Show time selector -->
+    <div class="showtime">
+      <label for="showtimeSelect">Select Show Time:</label>
+      <select id="showtimeSelect">
+        <option value="">-- Choose Time --</option>
+        <option value="10:00 AM">10:00 AM</option>
+        <option value="1:00 PM">1:00 PM</option>
+        <option value="4:00 PM">4:00 PM</option>
+        <option value="7:00 PM">7:00 PM</option>
+      </select>
+    </div>
+
+    <!-- Screen -->
+    <div class="screen">Screen</div>
+
+    <!-- Seats -->
+    <div class="seats-grid" id="seatsGrid">
+      <!-- JS will generate seat buttons -->
+    </div>
+
+    <!-- Booking info -->
+    <div class="booking-info">
+      <p>Selected Seats: <span id="selectedSeats">0</span></p>
+      <p>Total Amount: LKR. <span id="totalAmount">0</span></p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="booking-actions">
+      <button id="clearSelection">Clear Selection</button>
+      <button id="confirmBooking">Confirm Booking</button>
+    </div>
+  </div>
+
+  <script src="booking.js"></script>
+</body>
+</html>
