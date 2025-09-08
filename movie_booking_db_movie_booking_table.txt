@@ -1,0 +1,12 @@
+CREATE DATABASE movie_booking;
+
+USE movie_booking;
+
+CREATE TABLE bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    show_date DATE NOT NULL,
+    show_time VARCHAR(20) NOT NULL,
+    seats VARCHAR(255) NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
