@@ -3,7 +3,7 @@ const selectedSeatsSpan = document.getElementById('selectedSeats');
 const totalAmountSpan = document.getElementById('totalAmount');
 const clearBtn = document.getElementById('clearSelection');
 const confirmBtn = document.getElementById('confirmBooking');
-const seatPrice = 2000; // Example price per seat in LKR
+const seatPrice = 2000;
 
 let selectedSeats = new Set();
 
@@ -12,6 +12,7 @@ const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
 const seatsPerRow = 5;
 
 function createSeats() {
+  seatsGrid.innerHTML = ""; // clear before re-creating
   for (let r = 0; r < rows.length; r++) {
     for (let s = 1; s <= seatsPerRow; s++) {
       const seatBtn = document.createElement('button');
@@ -24,6 +25,7 @@ function createSeats() {
 }
 
 function toggleSeat(seatBtn) {
+  if (seatBtn.disabled) return; // prevent clicking booked seats
   const seat = seatBtn.textContent;
   if (selectedSeats.has(seat)) {
     selectedSeats.delete(seat);
@@ -45,19 +47,23 @@ function updateBookingInfo() {
 function clearSelection() {
   selectedSeats.clear();
   document.querySelectorAll('.seat').forEach(btn => {
-    btn.style.backgroundColor = '';
-    btn.style.color = '';
+    if (!btn.disabled) { // don't reset booked seats
+      btn.style.backgroundColor = '';
+      btn.style.color = '';
+    }
   });
   updateBookingInfo();
 }
 
-function confirmBooking() {
+async function confirmBooking() {
   if (selectedSeats.size === 0) {
     alert('Please select at least one seat before confirming.');
     return;
   }
+
   const date = document.getElementById('showDate').value;
   const time = document.getElementById('showtimeSelect').value;
+
   if (!date) {
     alert('Please select a show date.');
     return;
@@ -67,20 +73,74 @@ function confirmBooking() {
     return;
   }
 
-  // Save booking info to localStorage
-  localStorage.setItem('bookedSeats', JSON.stringify([...selectedSeats]));
-  localStorage.setItem('totalAmount', selectedSeats.size * seatPrice);
-  localStorage.setItem('showDate', date);
-  localStorage.setItem('showTime', time);
+  const seats = [...selectedSeats].join(", ");
+  const total = selectedSeats.size * seatPrice;
 
-  alert(`Booking Confirmed!\nDate: ${date}\nTime: ${time}\nSeats: ${[...selectedSeats].join(', ')}\nTotal: LKR. ${selectedSeats.size * seatPrice}`);
-  
-  // Redirect to payment page
-  window.location.href = 'payment.html';
+  try {
+    const response = await fetch("save_booking.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `showDate=${encodeURIComponent(date)}&showTime=${encodeURIComponent(time)}&seats=${encodeURIComponent(seats)}&totalAmount=${total}`
+    });
+
+    const result = await response.text();
+
+    // Save booking info locally
+    localStorage.setItem('bookedSeats', JSON.stringify([...selectedSeats]));
+    localStorage.setItem('totalAmount', total);
+    localStorage.setItem('showDate', date);
+    localStorage.setItem('showTime', time);
+
+    if (result.trim() === "success") {
+      alert(`Booking Confirmed!\nDate: ${date}\nTime: ${time}\nSeats: ${[...selectedSeats].join(', ')}\nTotal: LKR. ${total}`);
+      window.location.href = 'payment.html';
+    } else {
+      alert("Booking failed: " + result);
+    }
+  } catch (error) {
+    alert("Error connecting to server: " + error);
+  }
 }
 
+// 🔹 Fetch booked seats from DB
+async function fetchBookedSeats() {
+  const date = document.getElementById('showDate').value;
+  const time = document.getElementById('showtimeSelect').value;
+
+  if (!date || !time) return;
+
+  try {
+    const response = await fetch("get_booked_seats.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `showDate=${encodeURIComponent(date)}&showTime=${encodeURIComponent(time)}`
+    });
+
+    const bookedSeats = await response.json();
+
+    document.querySelectorAll('.seat').forEach(btn => {
+      if (bookedSeats.includes(btn.textContent)) {
+        btn.disabled = true;
+        btn.style.backgroundColor = "red";
+        btn.style.color = "white";
+      } else {
+        btn.disabled = false;
+        btn.style.backgroundColor = "";
+        btn.style.color = "";
+      }
+    });
+
+  } catch (error) {
+    console.error("Error fetching booked seats:", error);
+  }
+}
+
+// Event listeners
 clearBtn.addEventListener('click', clearSelection);
 confirmBtn.addEventListener('click', confirmBooking);
+document.getElementById('showDate').addEventListener('change', fetchBookedSeats);
+document.getElementById('showtimeSelect').addEventListener('change', fetchBookedSeats);
 
+// Init
 createSeats();
 updateBookingInfo();
