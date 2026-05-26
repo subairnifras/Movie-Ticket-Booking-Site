@@ -83,19 +83,20 @@ async function confirmBooking() {
       body: `showDate=${encodeURIComponent(date)}&showTime=${encodeURIComponent(time)}&seats=${encodeURIComponent(seats)}&totalAmount=${total}`
     });
 
-    const result = await response.text();
+    const data = await response.json();
 
-    // Save booking info locally
-    localStorage.setItem('bookedSeats', JSON.stringify([...selectedSeats]));
-    localStorage.setItem('totalAmount', total);
-    localStorage.setItem('showDate', date);
-    localStorage.setItem('showTime', time);
+    if (data.success) {
+      // Save booking info locally
+      localStorage.setItem('bookingId', data.booking_id);
+      localStorage.setItem('bookedSeats', JSON.stringify([...selectedSeats]));
+      localStorage.setItem('totalAmount', total);
+      localStorage.setItem('showDate', date);
+      localStorage.setItem('showTime', time);
 
-    if (result.trim() === "success") {
       alert(`Booking Confirmed!\nDate: ${date}\nTime: ${time}\nSeats: ${[...selectedSeats].join(', ')}\nTotal: LKR. ${total}`);
-      window.location.href = 'payment.html';
+      window.location.href = 'payment.php';
     } else {
-      alert("Booking failed: " + result);
+      alert("Booking failed: " + data.message);
     }
   } catch (error) {
     alert("Error connecting to server: " + error);

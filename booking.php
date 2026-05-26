@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html?redirect=booking.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +16,13 @@
 <body>
 
   <div class="booking-container">
-    <h1>Book Your Seats</h1>
+    <a href="index.php" class="back-home" style="color: #e70634; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: 500; font-family: sans-serif;">&larr; Back to Home</a>
+    
+    <div style="float: right; color: #fff; font-family: sans-serif; font-size: 14px; margin-bottom: 20px;">
+        Logged in as: <strong><?php echo htmlspecialchars($_SESSION['user_name']); ?></strong>
+    </div>
+    
+    <h1 style="clear: both;">Book Your Seats</h1>
 
     <!-- Date selector -->
     <div class="showdate">

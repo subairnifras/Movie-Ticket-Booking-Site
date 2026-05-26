@@ -1,32 +1,87 @@
 const container = document.getElementById('container');
-const registerBtn = document.getElementById('register');
-const loginBtn = document.getElementById('login');
+const toggleRegisterBtn = document.getElementById('register'); 
+const toggleLoginBtn = document.querySelector('.toggle-panel.toggle-left button'); 
 
-registerBtn.addEventListener('click', () => {
-    container.classList.add("active");
-});
+// Toggle panel transitions
+if (toggleRegisterBtn) {
+    toggleRegisterBtn.addEventListener('click', () => {
+        container.classList.add("active");
+    });
+}
 
-loginBtn.addEventListener('click', (e) => {
-    e.preventDefault();  // prevent default button behavior
+if (toggleLoginBtn) {
+    toggleLoginBtn.addEventListener('click', () => {
+        container.classList.remove("active");
+    });
+}
 
-    const signInForm = container.querySelector('.sign-in form');
-    const email = signInForm.querySelector('input[type="email"]').value.trim();
-    const password = signInForm.querySelector('input[type="password"]').value.trim();
+// Form AJAX submission
+const signInForm = document.querySelector('.sign-in form');
 
-    if (!email || !password) {
-        alert('Please enter both email and password.');
-        return;
-    }
+if (signInForm) {
+    signInForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    const successMessage = signInForm.querySelector('#successMessage');
-    successMessage.style.display = 'flex';  // show the success popup
+        const email = signInForm.querySelector('input[name="email"]').value.trim();
+        const password = signInForm.querySelector('input[name="password"]').value;
 
-    // Disable all inputs and buttons while message shows
-    signInForm.querySelectorAll('input, button, a').forEach(el => el.disabled = true);
+        if (!email || !password) {
+            alert('Please enter both email and password.');
+            return;
+        }
 
-    setTimeout(() => {
-        successMessage.style.display = 'none';  // hide success popup
-        signInForm.reset();                      // reset form fields
-        signInForm.querySelectorAll('input, button, a').forEach(el => el.disabled = false);
-    }, 3000);
-});
+        // Disable all inputs and buttons while processing
+        const inputsAndButtons = signInForm.querySelectorAll('input, button, a');
+        inputsAndButtons.forEach(el => {
+            el.disabled = true;
+            if (el.classList.contains('button-link')) {
+                el.style.pointerEvents = 'none';
+            }
+        });
+
+        try {
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+
+            const response = await fetch('login.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Show the success popup animation
+                const successMessage = signInForm.querySelector('#successMessage');
+                if (successMessage) {
+                    successMessage.style.display = 'flex';
+                }
+
+                setTimeout(() => {
+                    // Check if there is a redirect parameter in the URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirectUrl = urlParams.get('redirect') || 'index.php';
+                    window.location.href = redirectUrl;
+                }, 2000);
+            } else {
+                alert(data.message);
+                inputsAndButtons.forEach(el => {
+                    el.disabled = false;
+                    if (el.classList.contains('button-link')) {
+                        el.style.pointerEvents = 'auto';
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+            alert('Server error occurred. Please try again.');
+            inputsAndButtons.forEach(el => {
+                el.disabled = false;
+                if (el.classList.contains('button-link')) {
+                    el.style.pointerEvents = 'auto';
+                }
+            });
+        }
+    });
+}

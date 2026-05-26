@@ -1,27 +1,37 @@
 <?php
-$host = "localhost";
-$user = "root"; // default in XAMPP
-$pass = "";     // default in XAMPP
-$dbname = "login_system";
+session_start();
+include 'db.php';
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+header('Content-Type: application/json');
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(["success" => false, "message" => "Unauthorized access. Please login first."]);
+    exit;
 }
 
-$showDate = $_POST['showDate'];
-$showTime = $_POST['showTime'];
-$seats = $_POST['seats'];  // This will be like "A1, A2, B3"
-$totalAmount = $_POST['totalAmount'];
+$user_id = $_SESSION['user_id'];
+$showDate = $conn->real_escape_string($_POST['showDate'] ?? '');
+$showTime = $conn->real_escape_string($_POST['showTime'] ?? '');
+$seats = $conn->real_escape_string($_POST['seats'] ?? ''); // comma-separated seats
+$totalAmount = floatval($_POST['totalAmount'] ?? 0);
 
-$sql = "INSERT INTO bookings (showDate, showTime, seats, totalAmount) 
-        VALUES ('$showDate', '$showTime', '$seats', '$totalAmount')";
+if (empty($showDate) || empty($showTime) || empty($seats) || $totalAmount <= 0) {
+    echo json_encode(["success" => false, "message" => "Invalid booking details."]);
+    exit;
+}
+
+// Save as pending until payment is confirmed
+$sql = "INSERT INTO bookings (user_id, show_date, show_time, seats, total_amount, status) 
+        VALUES ('$user_id', '$showDate', '$showTime', '$seats', '$totalAmount', 'pending')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "success";
+    echo json_encode([
+        "success" => true, 
+        "booking_id" => $conn->insert_id,
+        "message" => "Booking created successfully."
+    ]);
 } else {
-    echo "Booking failed: " . $conn->error;
+    echo json_encode(["success" => false, "message" => "Booking failed: " . $conn->error]);
 }
 
 $conn->close();

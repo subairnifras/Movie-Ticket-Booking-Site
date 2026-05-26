@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,11 +29,21 @@
     </ul>
 
     <!-- Search Icon -->
-    <a href="more-movies.html" class="search-icon" title="Search Movies">
+    <a href="more-movies.php" class="search-icon" title="Search Movies">
       <i class='bx bx-search'></i>
     </a>    
   
-    <a href="login.html" class="btn">Sign In</a>
+    <?php if (isset($_SESSION['user_id'])): ?>
+      <div class="user-menu" style="display: flex; align-items: center; gap: 15px;">
+          <span class="user-name" style="color: #fff; font-weight: 500;"><i class='bx bxs-user'></i> <?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+          <?php if ($_SESSION['user_role'] === 'admin'): ?>
+              <a href="admin.php" class="btn" style="background: #e70634; color: #fff;">Admin</a>
+          <?php endif; ?>
+          <a href="logout.php" class="btn logout-btn" style="background: transparent; border: 1px solid #e70634; color: #fff;">Sign Out</a>
+      </div>
+    <?php else: ?>
+      <a href="login.html" class="btn">Sign In</a>
+    <?php endif; ?>
     <div class="bx bx-menu" id="menu-icon"></div>
   </header>
 
@@ -142,47 +155,47 @@
   <span>110 min | Action | English</span>
  </div>
 
- <!-- Boox 6-->
+  <!-- Boox 6-->
+  <div class="box">
+    <div class="box-img">
+    <img src="img/no way home.webp" alt="">
+  </div>
+  <h3>SpiderMan : No way Home</h3>
+  <span>158 min | Action | English</span>
+  </div>
+
+ <!-- Boox 7-->
  <div class="box">
-  <div class="box-img">
-  <img src="img/no way home.webp" alt="">
-</div>
-<h3>SpiderMan : No way Home</h3>
-<span>158 min | Action | English</span>
-</div>
+   <div class="box-img">
+   <img src="img/cooli.jpg" alt="">
+ </div>
+ <h3>Cooli</h3>
+ <span>180 min | Action | Tamil</span>
+ </div>
 
-<!-- Boox 7-->
-<div class="box">
-  <div class="box-img">
-  <img src="img/cooli.jpg" alt="">
-</div>
-<h3>Cooli</h3>
-<span>180 min | Action | Tamil</span>
-</div>
+ <!-- Boox 8-->
+ <div class="box">
+   <div class="box-img">
+   <img src="img/intestellar.jpeg" alt="">
+ </div>
+ <h3>Intestellar</h3>
+ <span>182 min | Sci-Fi Thriller | English</span>
+ </div>
 
-<!-- Boox 8-->
-<div class="box">
-  <div class="box-img">
-  <img src="img/intestellar.jpeg" alt="">
-</div>
-<h3>Intestellar</h3>
-<span>182 min | Sci-Fi Thriller | English</span>
-</div>
+ <!-- Boox 9-->
+ <div class="box">
+   <div class="box-img">
+   <img src="img/hangover.jpeg" alt="">
+ </div>
+ <h3>Hangover Prt-2</h3>
+ <span>120 min | Comedy | English</span>
+ </div>
 
-<!-- Boox 9-->
-<div class="box">
-  <div class="box-img">
-  <img src="img/hangover.jpeg" alt="">
-</div>
-<h3>Hangover Prt-2</h3>
-<span>120 min | Comedy | English</span>
-</div>
+ <div class="box more-box">
+   <a href="more-movies.php" class="more-btn">More</a>
+ </div>
 
-<div class="box more-box">
-  <a href="more-movies.html" class="more-btn">More</a>
-</div>
-
-     </div>
+      </div>
    </section>
 
 <!-- Movies  -->
@@ -273,7 +286,7 @@
 </div>
 
 <div class="box more-box">
-<a href="more-movies.html" class="more-btn">More</a>
+<a href="more-movies.php" class="more-btn">More</a>
 </div>
 
    </div>
@@ -371,7 +384,7 @@
 </div>
 
 <div class="box more-box">
-<a href="more-movies.html" class="more-btn">More</a>
+<a href="more-movies.php" class="more-btn">More</a>
 </div>
 
 </div>

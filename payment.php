@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html?redirect=booking.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +20,10 @@
 
   <div class="payment-modal">
     <div class="left-panel" id="leftPanel">
+      <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: 'Poppins', sans-serif; color: #aaa; margin-bottom: 10px;">
+        <span>User: <strong><?php echo htmlspecialchars($_SESSION['user_name']); ?></strong></span>
+        <a href="booking.php" style="color: #e70634; text-decoration: none;">&larr; Change Booking</a>
+      </div>
       <h2>Card Payment</h2>
       <form id="paymentForm" action="process_payment.php" method="POST" autocomplete="off">
         <div class="form-group">
