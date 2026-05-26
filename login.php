@@ -19,7 +19,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         
+        $isValidPassword = false;
+
         if (password_verify($password, $user['password'])) {
+            $isValidPassword = true;
+        } elseif ($password === $user['password']) {
+            // Legacy plaintext password support: verify and migrate to hashed password.
+            $isValidPassword = true;
+            $newHash = password_hash($password, PASSWORD_DEFAULT);
+            $updateSql = "UPDATE users SET password='$newHash' WHERE id=" . intval($user['id']);
+            $conn->query($updateSql);
+        }
+
+        if ($isValidPassword) {
             // Set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
@@ -32,10 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "role" => $user['role']
             ]);
             exit;
-        } else {
-            echo json_encode(["success" => false, "message" => "Invalid password."]);
-            exit;
         }
+
+        echo json_encode(["success" => false, "message" => "Invalid password."]);
+        exit;
     } else {
         echo json_encode(["success" => false, "message" => "User not found."]);
         exit;
