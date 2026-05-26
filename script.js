@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   bookNowBtns.forEach(function (btn) {
     btn.addEventListener("click", function (event) {
       event.preventDefault(); // prevent default <a> behavior
-      window.location.href = "booking.html";
+      window.location.href = "booking.php";
     });
   });
 });

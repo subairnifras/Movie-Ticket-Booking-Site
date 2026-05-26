@@ -2,7 +2,7 @@
 $host = "localhost"; 
 $user = "root"; // default XAMPP user
 $pass = ""; // default password is empty
-$dbname = "login_system";
+$dbname = "movie_booking_db";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 

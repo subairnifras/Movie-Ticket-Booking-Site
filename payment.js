@@ -5,13 +5,20 @@ const successMessage = document.getElementById('successMessage');
 const payBtn = document.getElementById('payBtn');
 
 // === FORM VALIDATION + PAYMENT ===
-paymentForm.addEventListener('submit', function (e) {
+paymentForm.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const cardName = document.getElementById('cardName').value.trim();
   const cardNumber = document.getElementById('cardNumber').value.trim().replace(/\s+/g, '');
   const expiryDate = document.getElementById('expiryDate').value;
   const cvv = document.getElementById('cvv').value.trim();
+  const bookingId = localStorage.getItem('bookingId');
+
+  if (!bookingId) {
+    alert('No active booking session found. Please return to the booking page.');
+    window.location.href = 'booking.php';
+    return;
+  }
 
   if (!cardName || !cardNumber || !expiryDate || !cvv) {
     alert('Please fill in all the fields.');
@@ -29,29 +36,54 @@ paymentForm.addEventListener('submit', function (e) {
   payBtn.disabled = true;
   payBtn.textContent = 'Processing...';
 
-  setTimeout(() => {
-    leftPanel.style.display = 'none';
-    rightImage.style.display = 'none';
-    successMessage.style.display = 'block';
+  try {
+    const formData = new FormData();
+    formData.append('bookingId', bookingId);
+    formData.append('cardName', cardName);
+    formData.append('cardNumber', cardNumber);
+    formData.append('expiryDate', expiryDate);
+    formData.append('cvv', cvv);
 
-    // Retrieve booking info from localStorage
-    const bookedSeats = JSON.parse(localStorage.getItem('bookedSeats')) || [];
-    const totalAmount = localStorage.getItem('totalAmount') || 0;
-    const showDate = localStorage.getItem('showDate') || "N/A";
-    const showTime = localStorage.getItem('showTime') || "N/A";
+    const response = await fetch('process_payment.php', {
+      method: 'POST',
+      body: formData
+    });
 
-    setTimeout(() => {
-      openTicketModal({
-        name: cardName,
-        event: "Movie Night",
-        date: showDate,
-        time: showTime,
-        seats: bookedSeats,
-        amount: totalAmount,
-        ticketId: "TCK" + Math.floor(100000 + Math.random() * 900000)
-      });
-    }, 1500);
-  }, 2000);
+    const data = await response.json();
+
+    if (data.success) {
+      leftPanel.style.display = 'none';
+      rightImage.style.display = 'none';
+      successMessage.style.display = 'block';
+
+      // Retrieve booking info from localStorage
+      const bookedSeats = JSON.parse(localStorage.getItem('bookedSeats')) || [];
+      const totalAmount = localStorage.getItem('totalAmount') || 0;
+      const showDate = localStorage.getItem('showDate') || "N/A";
+      const showTime = localStorage.getItem('showTime') || "N/A";
+
+      setTimeout(() => {
+        openTicketModal({
+          name: cardName,
+          event: "Movie Night",
+          date: showDate,
+          time: showTime,
+          seats: bookedSeats,
+          amount: totalAmount,
+          ticketId: "TCK" + bookingId.toString().padStart(6, '0')
+        });
+      }, 1500);
+    } else {
+      alert("Payment failed: " + data.message);
+      payBtn.disabled = false;
+      payBtn.textContent = 'Pay Now';
+    }
+  } catch (error) {
+    console.error("Error processing payment:", error);
+    alert("Connection error. Please try again.");
+    payBtn.disabled = false;
+    payBtn.textContent = 'Pay Now';
+  }
 });
 
 // === TICKET MODAL FUNCTIONALITY ===
